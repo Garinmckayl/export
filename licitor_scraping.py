@@ -294,39 +294,39 @@ for result in ls_links:
 
     time.sleep(3)
 
-    cookies_validation_button = driver.find_elements_by_id(
-        'didomi-notice-agree-button')
+    cookies_validation_button = driver.find_elements(By.ID,
+                                                     'didomi-notice-agree-button')
     if cookies_validation_button:
         cookies_validation_button[0].click()
-        time.sleep(2)
+        time.sleep(4)
 
     ls_pages_blanches_part_results = []
     ls_pages_blanches_entreprise_results = []
-    ls_pages_blanches_results_li = driver.find_elements_by_class_name(
-        'bi.bi-generic')
+    ls_pages_blanches_results_li = driver.find_elements(By.CLASS_NAME,
+                                                        'bi.bi-generic')
 
     for pb_result in ls_pages_blanches_results_li:
 
-        pb_name = pb_result.find_element_by_class_name(
-            'bi-denomination.pj-link').text.strip()
+        pb_name = pb_result.find_element(By.CLASS_NAME,
+                                         'bi-denomination.pj-link').text.strip()
         # if 'Ferme dans' in pb_name:
         #     stop
         try:
-            pb_address = pb_result.find_element_by_class_name(
-                'bi-address.small').text.split(' Voir le plan')[0]
+            pb_address = pb_result.find_element(By.CLASS_NAME,
+                                                'bi-address.small').text.split(' Voir le plan')[0]
         except:
             pb_address = ''
 
         ls_pb_phone = []
         try:
-            ls_pb_phones_div = pb_result.find_elements_by_class_name(
-                'number-contact.txt_sm')
+            ls_pb_phones_div = pb_result.find_elements(By.CLASS_NAME,
+                                                       'number-contact.txt_sm')
             for pb_phone_div in ls_pb_phones_div:
                 pb_phone_html = pb_phone_div.get_attribute('innerHTML')
 
                 if pb_phone_html.split('<')[0].find('Tél :') >= 0:
-                    pb_phone_str = pb_phone_div.find_elements_by_tag_name(
-                        'span')[-1].get_attribute('innerHTML').strip()
+                    pb_phone_str = pb_phone_div.find_elements(By.TAG_NAME,
+                                                              'span')[-1].get_attribute('innerHTML').strip()
                     ls_pb_phone.append(pb_phone_str)
         except:
             pass
