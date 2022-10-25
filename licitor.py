@@ -1,8 +1,14 @@
 import requests
 from bs4 import BeautifulSoup
 import writeData
+import datetime
 session=requests.Session()
 def licitorScraping():
+    #get the current date
+    date=datetime.datetime.now()
+    #get the month and day
+    month=date.month
+    day=date.day
     url_page='https://www.licitor.com/dernieres-encheres.html?p={i}'
     ls_links=[]
     r=session.get(url_page.format(i=1))
@@ -25,13 +31,17 @@ def licitorScraping():
 
             link = {
                 'link': 'https://www.licitor.com' + li.find('a').get('href'),
+                'date':soup.find('time'),
+                
+
                 'department': li.find('span', {'class': 'Number'}).text.strip(),
                 'city': li.find('span', {'class': 'City'}).text.strip().split('(')[0],
-                'originalType': li.find('span', {'class': 'Name'}).text.strip()
             }
-
-            if 'maison' in link['originalType'] or 'pavillon' in link['originalType'] \
-                    or 'propriété' in link['originalType'] or 'remise' in link['originalType']:
+            originalType=li.find('span', {'class': 'Name'}).text.strip()
+            #Converts the date tag to a mm/dd/yyyy format
+            date=link['date'].split('\"')[1].split('-')[0:3]
+            print(date)
+            if 'maison' in originalType or 'pavillon' in originalType and link['date']: 
                
 
                 ls_links.append([link])
