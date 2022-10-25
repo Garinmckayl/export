@@ -35,10 +35,12 @@ def licitorScraping():
             link = {
                 'link': 'https://www.licitor.com' + li.find('a').get('href'),
                 'date':soup.find('time').get('datetime'),
-                
-
-                'department': li.find('span', {'class': 'Number'}).text.strip(),
                 'city': li.find('span', {'class': 'City'}).text.strip().split('(')[0],
+                'name':'',
+                'surname':'',
+                'phone':'',
+                'zip':'',
+                'address':'', 
             }
             originalType=li.find('span', {'class': 'Name'}).text.strip()
             #Converts the date tag to a format
