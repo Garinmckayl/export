@@ -45,3 +45,4 @@ def licitorScraping():
 
             ls_links.append(link)
             writeData.addRawData(link)
+licitorScraping()
