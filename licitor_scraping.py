@@ -196,13 +196,14 @@ for result in ls_links:
     url_adresse = f'https://api-adresse.data.gouv.fr/search/?q={api_address}&lat={api_lat}&lon={api_lon}'
     r_api = s.get(url_adresse)
     # result['api_adresse_licitor'] = url_adresse
+    
+
     api_data = r_api.json()['features']
     if not api_data:
         print('Api Address KO', result)
         print(r_api.status_code)
         print(r_api.url)
         continue
-
     api_min_distance = min([x['properties']['distance'] for x in api_data])
     api_data = [x for x in api_data if x['properties']
                 ['distance'] == api_min_distance][0]
