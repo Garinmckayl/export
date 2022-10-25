@@ -43,6 +43,6 @@ def licitorScraping():
             else:
                 link['type'] = 'Autres'
 
-            ls_links.append(link)
-            writeData.addRawData(link)
-licitorScraping()
+            ls_links.append([link])
+    # writeData.addRawData(ls_links)
+    return ls_links
