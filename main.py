@@ -1,4 +1,5 @@
 import licitor
 import pagesBlanches
 
-pagesBlanches.pagesBlanches(licitor.licitorScraping())
+#Here maybe change from test to normal mode
+pagesBlanches.pagesBlanchesTest(licitor.licitorScraping())

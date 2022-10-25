@@ -22,4 +22,7 @@ def pagesBlanches(ls_links):
                                            ls_links['city'],
                                            ls_links['department']])
     driver.get(f"{url_pages_blanches}{pages_blanches_address}")
-    return 0
+
+#For Sam testing
+def pagesBlanchesTest(ls_links):
+    return 2
