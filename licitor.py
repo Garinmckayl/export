@@ -32,17 +32,9 @@ def licitorScraping():
 
             if 'maison' in link['originalType'] or 'pavillon' in link['originalType'] \
                     or 'propriété' in link['originalType'] or 'remise' in link['originalType']:
-                link['type'] = 'Maison'
-            elif 'appartement' in link['originalType'] or 'logement' in link['originalType'] \
-                    or 'Un bien' in link['originalType'] or 'Une pièce' in link['originalType'] \
-                    or 'studio' in link['originalType']:
-                link['type'] = 'Appartement'
-            elif 'immeuble' in link['originalType'] or 'bâtiment' in link['originalType'] \
-                    or 'bâtisse' in link['originalType'] or 'ensemble' in link['originalType']:
-                link['type'] = 'Immeuble'
-            else:
-                link['type'] = 'Autres'
+               
 
-            ls_links.append([link])
+                ls_links.append([link])
+            print(link)
     # writeData.addRawData(ls_links)
     return ls_links
