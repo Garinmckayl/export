@@ -8,3 +8,5 @@ sheet=client.open('Remereo').sheet1
 
 def addRow(url, name,surname,phone, addres, zip, city, date):
     sheet.insert_row([url, name,surname,phone, addres, zip, city, date])
+def addRawData(data):
+    sheet.insert_row(data)  
