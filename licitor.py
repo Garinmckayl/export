@@ -6,9 +6,12 @@ session=requests.Session()
 def licitorScraping():
     #get the current date
     date=datetime.datetime.now()
+    #get the date it will be in 30 days
+    date30=date+datetime.timedelta(days=30)
     #get the month and day
-    month=date.month
-    day=date.day
+    month=date30.month
+    day=date30.day
+    year=date30.year
     url_page='https://www.licitor.com/dernieres-encheres.html?p={i}'
     ls_links=[]
     r=session.get(url_page.format(i=1))
@@ -31,17 +34,19 @@ def licitorScraping():
 
             link = {
                 'link': 'https://www.licitor.com' + li.find('a').get('href'),
-                'date':soup.find('time'),
+                'date':soup.find('time').get('datetime'),
                 
 
                 'department': li.find('span', {'class': 'Number'}).text.strip(),
                 'city': li.find('span', {'class': 'City'}).text.strip().split('(')[0],
             }
             originalType=li.find('span', {'class': 'Name'}).text.strip()
-            #Converts the date tag to a mm/dd/yyyy format
-            date=link['date'].split('\"')[1].split('-')[0:3]
+            #Converts the date tag to a format
+            dateArray=link['date'].split('T')[0].split('-')
             print(date)
-            if 'maison' in originalType or 'pavillon' in originalType and link['date']: 
+            #filter for only the dates that are in exactly one month
+            if int(dateArray[1])==month and int(dateArray[2])==day and int(dateArray[0])==year\
+            and'maison' in originalType or 'pavillon' in originalType and link['date']: 
                
 
                 ls_links.append([link])

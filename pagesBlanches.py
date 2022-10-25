@@ -7,12 +7,13 @@ from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 url_pages_blanches = 'https://www.pagesjaunes.fr/pagesblanches/recherche?ou='
 
-driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
-driver.maximize_window()
+
 
 
 def pagesBlanches(ls_links):
         # check in phone book
+    driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
+    driver.maximize_window()
     if 'street' in ls_links:
         pages_blanches_address = ' '.join([ls_links['street'],
                                            ls_links['postalCode'],
