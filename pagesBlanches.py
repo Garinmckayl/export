@@ -111,7 +111,8 @@ def pagesBlanches(result):
         ls_pages_blanches_part_results)
 
     print(result)
-    writeData.addRow(result['url'], result['name'], result['surname'], result['phone'], result['address'], result['zip'], result['city'], result['date'])
+    if result['inhabitants'] > 0 and result['inhabitants']<3:
+        writeData.addRow(result['url'], result['name'], result['surname'], result['phone'], result['address'], result['zip'], result['city'], result['date'],result['name2'],result['surname2'],result['phone2'])
     driver.quit()
 
 
