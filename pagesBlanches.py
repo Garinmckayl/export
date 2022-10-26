@@ -67,8 +67,7 @@ def pagesBlanches(result):
     ls_pages_blanches_entreprise_results = []
     ls_pages_blanches_results_li = driver.find_elements(By.CLASS_NAME,
                                                         'bi.bi-generic')
-    # The zip code is in the parent element of the icon-autour-meteo tag. We need to then extract the zip code from the address. The zip code is separated by the string '&nbsp;' but to reach it we need to use innerHTML.
-    result['zip']=driver.find_elements(By.CLASS_NAME,'icon-autour-meteo')[0].find_element(By.XPATH,'..').get_attribute('innerHTML').split('&nbsp;')
+    result['address']=driver.find_elements(By.CLASS_NAME,'icon-autour-meteo')[0].find_element(By.XPATH,'..').text.split(' Voir le')[0]
     for pb_result in ls_pages_blanches_results_li:
 
         pb_name = pb_result.find_element(By.CLASS_NAME,
@@ -103,20 +102,20 @@ def pagesBlanches(result):
         return
     
 
-    result['phone'] = ls_pages_blanches_part_results[0][0]
+    result['phone'] = ls_pages_blanches_part_results[0][0][0]
     result['name'] = ls_pages_blanches_part_results[0][1].split(' ')[1] 
     result['surname'] = ls_pages_blanches_part_results[0][1].split(' ')[0]
     
     if result['inhabitants'] == 2:
-        result['phone2'] = ls_pages_blanches_part_results[1][0] 
+        result['phone2'] = ls_pages_blanches_part_results[1][0][0]
         result['surname2'] = ls_pages_blanches_part_results[1][1].split(' ')[0] 
         result['name2'] = ls_pages_blanches_part_results[1][1].split(' ')[1]
 
     print(result)
     if result['inhabitants'] ==1:
         # addRow with the result
-        writeData.addRow(result['url'], result['name'], result['surname'], result['phone'], result['address'], result['zip'], result['city'], result['date'])
+        writeData.addRow(result['url'], result['name'], result['surname'], result['phone'], result['address'], result['date'])
     if result['inhabitants']==2:
-        writeData.addRow(result['url'], result['name'], result['surname'], result['phone'], result['address'], result['zip'], result['city'], result['date'],result['name2'],result['surname2'],result['phone2'])
+        writeData.addRow(result['url'], result['name'], result['surname'], result['phone'], result['address'],   result['date'],result['name2'],result['surname2'],result['phone2'])
 
 
