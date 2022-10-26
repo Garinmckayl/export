@@ -67,19 +67,14 @@ def pagesBlanches(result):
     ls_pages_blanches_entreprise_results = []
     ls_pages_blanches_results_li = driver.find_elements(By.CLASS_NAME,
                                                         'bi.bi-generic')
-    # The zip code is in the parent element of the icon-autour-meteo tag. We need to then extract the zip code from the address. The zip code is separated by a the string '&nbsp;'.
-    result['zip']=driver.find_elements(By.CLASS_NAME,'icon-autour-meteo')[0].find_element(By.XPATH,'..').text.split('&nbsp;')[1]
+    # The zip code is in the parent element of the icon-autour-meteo tag. We need to then extract the zip code from the address. The zip code is separated by the string '&nbsp;' but to reach it we need to use innerHTML.
+    result['zip']=driver.find_elements(By.CLASS_NAME,'icon-autour-meteo')[0].find_element(By.XPATH,'..').get_attribute('innerHTML').split('&nbsp;')
     for pb_result in ls_pages_blanches_results_li:
 
         pb_name = pb_result.find_element(By.CLASS_NAME,
                                          'bi-denomination.pj-link').text.strip()
         # if 'Ferme dans' in pb_name:
         #     stop
-        try:
-            pb_address = pb_result.find_element(By.CLASS_NAME,
-                                                'bi-address.small').text.split(' Voir le plan')[0]
-        except:
-            pb_address = ''
 
         ls_pb_phone = []
         try:
@@ -94,21 +89,28 @@ def pagesBlanches(result):
                     ls_pb_phone.append(pb_phone_str)
         except:
             pass
-
-        pages_blanches_result = ' - '.join([pb_name.replace('-', ' '),
-                                            pb_address,
-                                            ] + ls_pb_phone)
         phone = ls_pb_phone
-        if pb_result.get_attribute('id').startswith('epj'):
-            ls_pages_blanches_entreprise_results.append(pages_blanches_result)
-        else:
-            ls_pages_blanches_part_results.append(pages_blanches_result)
+        
+        ls_pages_blanches_part_results.append([phone, pb_name])
 
     # result['pages_blanches_particuliers_results'] = '\n'.join(
     #     ls_pages_blanches_part_results)
     result['inhabitants'] = len(
         ls_pages_blanches_part_results)
-    result['phone'] = phone
+    if result['inhabitants'] ==0:
+        return
+    if result['inhabitants'] > 2:
+        return
+    
+
+    result['phone'] = ls_pages_blanches_part_results[0][0]
+    result['name'] = ls_pages_blanches_part_results[0][1].split(' ')[1] 
+    result['surname'] = ls_pages_blanches_part_results[0][1].split(' ')[0]
+    
+    if result['inhabitants'] == 2:
+        result['phone2'] = ls_pages_blanches_part_results[1][0] 
+        result['surname2'] = ls_pages_blanches_part_results[1][1].split(' ')[0] 
+        result['name2'] = ls_pages_blanches_part_results[1][1].split(' ')[1]
 
     print(result)
     if result['inhabitants'] ==1:

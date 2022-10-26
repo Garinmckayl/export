@@ -40,8 +40,8 @@ def licitorScraping():
             if not li.find('a'):
                 continue
             link = {
-                'link': 'https://www.licitor.com' + li.find('a').get('href'),
-                'date':soup.find('time').get('datetime'),
+                'url': 'https://www.licitor.com' + li.find('a').get('href'),
+                'date':soup.find('time').get('datetime').split('T')[0],
                 'city': li.find('span', {'class': 'City'}).text.strip().split('(')[0],
                 'name':'',
                 'surname':'',
@@ -58,8 +58,8 @@ def licitorScraping():
             and'maison' in originalType or 'pavillon' in originalType and link['date']: 
                 sleep(2) 
                 link = {
-                    'link': 'https://www.licitor.com' + li.find('a').get('href'),
-                    'date':soup.find('time').get('datetime'),
+                    'url': 'https://www.licitor.com' + li.find('a').get('href'),
+                    'date':soup.find('time').get('datetime').split('T')[0],
                     'city': li.find('span', {'class': 'City'}).text.strip().split('(')[0],
                     'name':'',
                     'surname':'',
