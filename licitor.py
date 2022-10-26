@@ -7,6 +7,7 @@ from selenium import webdriver
 from webdriver_manager.chrome import ChromeDriverManager
 from selenium.webdriver.chrome.service import Service
 from time import sleep
+from pagesBlanches import pagesBlanches
 session=requests.Session()
 def licitorScraping():
     
@@ -79,5 +80,7 @@ def licitorScraping():
                 
                 ls_links.append([link])
                 print(link)
+                pagesBlanches(link)
     # writeData.addRawData(ls_links)
-    return ls_links
+
+    return ('success')
