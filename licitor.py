@@ -35,14 +35,18 @@ def licitorScraping():
             link = {
                 'link': 'https://www.licitor.com' + li.find('a').get('href'),
                 'date':soup.find('time').get('datetime'),
-                'city': li.find('p', {'class': 'City'}).text,
+                'city': li.find('span', {'class': 'City'}).text.strip().split('(')[0],
                 'name':'',
                 'surname':'',
                 'phone':'',
                 'zip':'',
                 'address':'', 
-                'street':li.find('p', {'class': 'Street'}).text,
+                
             }
+            try:
+                link.update({'street':soup.find('p', {'class': 'Street'}).stripped_strings,})
+            except:
+                pass
             originalType=li.find('span', {'class': 'Name'}).text.strip()
             #Converts the date tag to a format
             dateArray=link['date'].split('T')[0].split('-')
