@@ -61,7 +61,7 @@ def licitorScraping():
             print(link['date'])
             print(dateArray)
             if int(dateArray[1])==month and int(dateArray[2])==day and int(dateArray[0])==year\
-            and'maison' in originalType or 'pavillon' in originalType and link['date']: 
+            and ('maison' in originalType or 'pavillon' in originalType): 
                 
                 
                 #Converts the date tag to a format
