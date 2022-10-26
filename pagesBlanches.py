@@ -19,13 +19,15 @@ def pagesBlanches(ls_links):
     driver = webdriver.Chrome(service=Service(ChromeDriverManager().install()))
     driver.maximize_window()
     for result in ls_links: 
-        if 'street' in ls_links:
+        if 'street' in result:
             pages_blanches_address = ' '.join([result['street'],
                                             result['city']])
         # else:
         #     pages_blanches_address = ' '.join([ls_links['location'],
         #                                        ls_links['city'],
         #                                        ls_links['department']])
+        else:
+            continue
         driver.get(f"{url_pages_blanches}{pages_blanches_address}")
 
         hasDriverReponse = False
@@ -114,7 +116,7 @@ def pagesBlanches(ls_links):
             ls_pages_blanches_part_results)
 
         print(result)
-        driver.quit()
+    driver.quit()
 
 #For Sam testing
 def pagesBlanchesTest(ls_links):
