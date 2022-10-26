@@ -110,6 +110,8 @@ def pagesBlanches(result):
     result['phone'] = phone
 
     print(result)
+    writeData.addRow(result['url'], result['name'], result['surname'], result['phone'],
+                     result['address'], result['zip'], result['city'], result['date'])
     driver.quit()
 
 # For Sam testing

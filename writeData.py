@@ -6,7 +6,7 @@ creds=ServiceAccountCredentials.from_json_keyfile_name('client_secret.json',scop
 client=gspread.authorize(creds)
 sheet=client.open('Remereo').sheet1
 
-def addRow(url, name,surname,phone, addres, zip, city, date):
-    sheet.insert_row([url, name,surname,phone, addres, zip, city, date])
+def addRow(url, name,surname,phone, addres, zip, city, date,name2,surname2,phone2):
+    sheet.insert_row([url, name,surname,phone, name2,surname2,phone2,addres, zip, city, date])
 def addRawData(data):
     sheet.insert_row(data)  
