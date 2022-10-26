@@ -67,7 +67,8 @@ def pagesBlanches(result):
     ls_pages_blanches_entreprise_results = []
     ls_pages_blanches_results_li = driver.find_elements(By.CLASS_NAME,
                                                         'bi.bi-generic')
-
+    # The zip code is in the parent element of the icon-autour-meteo tag. We need to then extract the zip code from the address. The zip code is separated by a the string '&nbsp;'.
+    result['zip']=driver.find_elements(By.CLASS_NAME,'icon-autour-meteo')[0].find_element(By.XPATH,'..').text.split('&nbsp;')[1]
     for pb_result in ls_pages_blanches_results_li:
 
         pb_name = pb_result.find_element(By.CLASS_NAME,
@@ -115,10 +116,5 @@ def pagesBlanches(result):
         writeData.addRow(result['url'], result['name'], result['surname'], result['phone'], result['address'], result['zip'], result['city'], result['date'])
     if result['inhabitants']==2:
         writeData.addRow(result['url'], result['name'], result['surname'], result['phone'], result['address'], result['zip'], result['city'], result['date'],result['name2'],result['surname2'],result['phone2'])
-    driver.quit()
-
-# For Sam testing
 
 
-def pagesBlanchesTest(ls_links):
-    return 2
