@@ -111,7 +111,9 @@ def pagesBlanches(result):
         ls_pages_blanches_part_results)
 
     print(result)
+    writeData.addRow(result['url'], result['name'], result['surname'], result['phone'], result['address'], result['zip'], result['city'], result['date'])
     driver.quit()
+
 
 #For Sam testing
 def pagesBlanchesTest(ls_links):
